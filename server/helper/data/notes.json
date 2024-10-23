@@ -1,10 +1,16 @@
 [
     {
-        "title":"hello! this is my first note.",
-        "content":"hello there this is a test :).",
-        "wroteBy":"",
-        "date":"",
-        "last_modification":"",
-        "history":[]
-    }
+        "_id": {
+          "$oid": "6718deee51d1d0d3a4fa0411"
+        },
+        "title": "hello! this is my first note.",
+        "content": "hello there! this is a test :).",
+        "date": {
+          "$date": "2024-10-23T12:17:19.520Z"
+        },
+        "history": [],
+        "user": {
+          "$oid": "6718dd9a51d1d0d3a4fa040a"
+        }
+      }
 ]

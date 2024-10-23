@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "6718dd9a51d1d0d3a4fa040a"
+  },
+  "nombre": "juan",
+  "nickname": "juancho_insanidi",
+  "email": "exampleEmail@gmail.com"
+},
+{
+  "_id": {
+    "$oid": "6718dd9a51d1d0d3a4fa040b"
+  },
+  "nombre": "cristian",
+  "nickname": "cirsGomitas",
+  "email": "exampleEmail@gmail.com"
+},
+{
+  "_id": {
+    "$oid": "6718dd9a51d1d0d3a4fa040c"
+  },
+  "nombre": "setabian",
+  "nickname": "ayutrola",
+  "email": "exampleEmail@gmail.com"
+}]

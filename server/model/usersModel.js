@@ -11,7 +11,7 @@ module.exports = class User extends Connect {
         const connection = await this.getConnect();
          try {
           this.user_instance = connection.data   
-          let res = await this.user_instance.collection('note').aggregate([]).toArray();
+          let res = await this.user_instance.collection('user').aggregate([]).toArray();
           console.log(res);
           return res;
         }catch (error) {
