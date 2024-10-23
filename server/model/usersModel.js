@@ -8,14 +8,15 @@ module.exports = class User extends Connect {
     }
 
     async getAllUsers(){
-        await this.getConnect();
+        const connection = await this.getConnect();
          try {
-      let res = await this.cliente_instance.aggregate([{}]);
-      console.log(res);
-      return res;
-    } catch (error) {
-      return { error: error, message: `there was a problem at get the users` };
-    }
+          this.user_instance = connection.data   
+          let res = await this.user_instance.collection('note').aggregate([]).toArray();
+          console.log(res);
+          return res;
+        }catch (error) {
+          return { error: error, message: `there was a problem at get the users` };
+        }
     }
 }
 

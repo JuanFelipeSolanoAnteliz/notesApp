@@ -1,4 +1,5 @@
 const express = require('express');
+const { join } = require('path')
 const https = require('https');
 const fs = require('fs');
 
@@ -6,6 +7,12 @@ const app = express();
 
 const privateKey = fs.readFileSync('./private.key');
 const certificate = fs.readFileSync('./certificate.crt');
+const userRouter = require('./server/router/usersRouter'); 
+
+app.use('/notes', (req, res, next)=>{
+    req.__dirname = __dirname;
+    next(); 
+},userRouter)
 
 const httpsServer = https.createServer({
     key: privateKey,
@@ -20,3 +27,5 @@ const port = 5000;
 httpsServer.listen(port, () => {
     console.log(`Servidor HTTPS escuchando en el puerto https://localhost:${port}`);
 });
+
+console.log(new Date())

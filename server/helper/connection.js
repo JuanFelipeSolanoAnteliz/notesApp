@@ -7,7 +7,7 @@ module.exports= class  Connect{
     }
     async getConnect(){
         try{
-            const client = await MongoClient.connect(this.url, { userNewUrlParser: true, useUnifiedTopology: true });
+            const client = await MongoClient.connect(this.url, { useNewUrlParser: true, useUnifiedTopology: true });
             const db = client.db(this.dbName);
             return {
                 status: 200, 
@@ -15,6 +15,7 @@ module.exports= class  Connect{
                 data:db
             };
         }catch(error){
+            console.log(error)
             throw new Error(JSON.stringify({ status: 500, message: "Connection error", data:error }));
         }
     }

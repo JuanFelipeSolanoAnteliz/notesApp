@@ -1,5 +1,10 @@
 [
     {
-        
+        "title":"hello! this is my first note.",
+        "content":"hello there this is a test :).",
+        "wroteBy":"",
+        "date":"",
+        "last_modification":"",
+        "history":[]
     }
 ]

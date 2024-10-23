@@ -3,9 +3,10 @@ const user = new User();
 
 exports.findAllUsers = async(req, res)=>{
     try{
+        console.log('----- en controler -----')
         let result = await user.getAllUsers();
         console.log(result)
-        return res.status(result.status).json(result);
+        return res.json(result);
     }catch(error){
         let err = JSON.parse(error.message);
         return res.status(err.status).json(err.message);
