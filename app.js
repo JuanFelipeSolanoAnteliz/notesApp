@@ -8,11 +8,17 @@ const app = express();
 const privateKey = fs.readFileSync('./private.key');
 const certificate = fs.readFileSync('./certificate.crt');
 const userRouter = require('./server/router/usersRouter'); 
+const noteRouter = require('./server/router/notesRouter');
 
 app.use('/notes', (req, res, next)=>{
     req.__dirname = __dirname;
+    next();
+},noteRouter)
+
+app.use('/users', (req, res, next)=>{
+    req.__dirname = __dirname;
     next(); 
-},userRouter)
+},userRouter);
 
 const httpsServer = https.createServer({
     key: privateKey,

@@ -3,7 +3,6 @@ const user = new User();
 
 exports.findAllUsers = async(req, res)=>{
     try{
-        console.log('----- en controler -----')
         let result = await user.getAllUsers();
         console.log(result)
         return res.json(result);
