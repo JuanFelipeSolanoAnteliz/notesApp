@@ -31,6 +31,12 @@ module.exports = class Notes extends connect{
                 data:error
             }
         }
+    };
+
+    async postNewNote(userId){
+        const connection = await this.getConnect();
+        this.notes_instance = connection.data;
+        let res = await this.notes_instance.collection('note').insertOne({})
     }
 
 }
