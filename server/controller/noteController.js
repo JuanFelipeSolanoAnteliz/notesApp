@@ -16,7 +16,25 @@ exports.findAllNotes = async(req, res)=>{
     }
 }
 
-
+/**
+ * 
+ * @method save Crear Note
+ * @description Crea una nueva nota
+ */
+exports.save = async(req,res)=>{
+    try{
+        // let result = note.postNewNote(req.body, req.cokiees.id);
+        let result = await note.postNewNote(req.body,'6718dd9a51d1d0d3a4fa040a');
+        return res.status(result.status).json(result);
+    }catch(error){
+        console.log('-----------------------------------',error,'-----------------------------------');
+        let err = JSON.parse(error.message);
+        return {
+            status:res.status(err.status),
+            error:err
+        };
+    }
+}
 
 
 /**
@@ -32,13 +50,6 @@ exports.findNoteById = async(req, res)=>{
         return res.status(err.status).json(err.message);
     }
 }
-
-
-
-
-
-
-
 
 
 /**
@@ -77,28 +88,6 @@ exports.findNoteChangeHistory = async(req, res)=>{
         return res.status(err.status).json(err.message);
     }
 }
-
-
-
-
-
-
-/**
- * 
- * @method save Crear Note
- * @description Crea una nueva nota
- */
-exports.save = async(req, res)=>{
-    try{
-
-    }catch(error){
-        let err = JSON.parse(error.message);
-        return res.status(err.status).json(err.message);
-    }
-}
-
-
-
 
 /**
  * 

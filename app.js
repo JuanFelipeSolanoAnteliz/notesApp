@@ -10,6 +10,8 @@ const certificate = fs.readFileSync('./certificate.crt');
 const userRouter = require('./server/router/usersRouter'); 
 const noteRouter = require('./server/router/notesRouter');
 
+app.use(express.json());
+
 app.use('/notes', (req, res, next)=>{
     req.__dirname = __dirname;
     next();

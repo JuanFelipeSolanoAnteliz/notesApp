@@ -33,10 +33,32 @@ module.exports = class Notes extends connect{
         }
     };
 
-    async postNewNote(userId){
-        const connection = await this.getConnect();
-        this.notes_instance = connection.data;
-        let res = await this.notes_instance.collection('note').insertOne({})
+    async postNewNote(data,userId){
+        try{
+            console.log(data)
+            const connection = await this.getConnect();
+            // console.log(connection.data.collection('note'))
+            let newNote = {
+                title:data.title,
+                content:data.body,
+                date:new Date(),
+                history:[],
+                user:new ObjectId(userId)
+            }
+            this.notes_instance = connection.data;
+            let res = await this.notes_instance.collection('note').insertOne(newNote);
+            return{
+                    status:201,
+                    message:'note saved succsessfully',
+                    data:res
+                };
+            
+        }catch(error){
+            return {
+                status:500,
+                message:'something went wrong, check the note you want to insert',
+            };
+        }
     }
 
 }
