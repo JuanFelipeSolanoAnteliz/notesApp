@@ -9,8 +9,10 @@ const privateKey = fs.readFileSync('./private.key');
 const certificate = fs.readFileSync('./certificate.crt');
 const userRouter = require('./server/router/usersRouter'); 
 const noteRouter = require('./server/router/notesRouter');
+const session = require('./server/middleware/sessionConfig');
 
 app.use(express.json());
+app.use(session);
 
 app.use('/notes', (req, res, next)=>{
     req.__dirname = __dirname;
