@@ -61,4 +61,31 @@ module.exports = class Notes extends connect{
         }
     }
 
+    async getOneNoteById(idNote, idUser){
+        try{ 
+            const connection = await this.getConnect();
+            this.notes_instance = connection.data;
+            let res = await this.notes_instance.collection('note').aggregate([{$match:{_id:new ObjectId(idNote), user: new ObjectId(idUser)}}]).toArray()
+            if(!res[0]){
+                return{
+                    status:404,
+                    message:'this note does not exist',
+                    data:res
+                }
+            }else{
+                return{
+                    status:200,
+                    message:'note fetched succsessfully',
+                    data:res
+                }
+            }
+        }catch(error){
+            return{
+                status:500,
+                message:'something wnet wrong, server error',
+                data:error
+            }
+        }
+    }
+
 }
