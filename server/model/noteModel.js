@@ -5,7 +5,7 @@ module.exports = class Notes extends connect{
     constructor(){
         super();
     }
-
+    
     async getAllNotesByUser(id){
         try{
             const connection = await this.getConnect();

@@ -1,5 +1,7 @@
-const Note = require('../model/noteModel')
+const Note = require('../model/noteModel');
 const note = new Note();
+const User = require('../model/usersModel');
+const user = new User();
 
 /**
  * 
@@ -8,6 +10,7 @@ const note = new Note();
  */
 exports.findAllNotes = async(req, res)=>{
     try{
+        console.log('----------------------------', req.session, '----------------------------');
         let result = await note.getAllNotesByUser('6718dd9a51d1d0d3a4fa040a');
         return res.status(result.status).json(result);
     }catch(error){
@@ -25,6 +28,7 @@ exports.save = async(req, res)=>{
     try{
         // let result = note.postNewNote(req.body, req.cokiees.id);
         let result = await note.postNewNote(req.body,'6718dd9a51d1d0d3a4fa040a');
+        
         return res.status(result.status).json(result);
     }catch(error){
         let err = JSON.parse(error.message);

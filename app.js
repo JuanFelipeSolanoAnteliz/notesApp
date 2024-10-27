@@ -2,19 +2,20 @@ const express = require('express');
 const { join } = require('path')
 const https = require('https');
 const fs = require('fs');
+const session = require('./server/middleware/sessionConfig');
+const { auth } = require('./server/middleware/decodedJWT');
 
 const app = express();
+app.use(session);
+app.use(express.json());
 
 const privateKey = fs.readFileSync('./private.key');
 const certificate = fs.readFileSync('./certificate.crt');
 const userRouter = require('./server/router/usersRouter'); 
 const noteRouter = require('./server/router/notesRouter');
-const session = require('./server/middleware/sessionConfig');
 
-app.use(express.json());
-app.use(session);
 
-app.use('/notes', (req, res, next)=>{
+app.use('/notes', auth,(req, res, next)=>{
     req.__dirname = __dirname;
     next();
 },noteRouter)
