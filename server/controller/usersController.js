@@ -32,17 +32,19 @@ exports.login= async(req,res)=>{
     try{
         let resultEmail = await user.findExistEmail(req.body)
         if(resultEmail.status !== 200 ) return res.status(resultEmail.status).json(resultEmail);
-        let resEmailAndPassword = await bcrypt.compare(req.body.password, resultEmail.data.password);
+        // console.log(req.body.password, resultEmail.data[0].password)
+        let resEmailAndPassword = await bcrypt.compare(req.body.password, resultEmail.data[0].password);
         if(!resEmailAndPassword) return res.status(406).json({status: 406, message: "Invalid password"});
 
         delete resultEmail.data.password;
         const SECRET_KEY =  fs.readFileSync('./certificate.csr');
-        const token = jwt.sign(resultEmail.data, SECRET_KEY.toString('utf8'), {expiresIn: 1800000});
+        const token = jwt.sign(resultEmail.data[0], SECRET_KEY.toString('utf8'), {expiresIn: 1800000});
         req.session.auth = token;
 
         return res.status(resultEmail.status).json({status: resultEmail.status, message: 'You have successfully logged in'})
 
     }catch(error){
+        console.log(error)
         let err = JSON.parse(error.message);
         return res.status(err.status).json(err.message);
     }
@@ -51,6 +53,17 @@ exports.login= async(req,res)=>{
 exports.findAllUsers = async(req, res)=>{
     try{
         let result = await user.getAllUsers();
+        console.log(result)
+        return res.json(result);
+    }catch(error){
+        let err = JSON.parse(error.message);
+        return res.status(err.status).json(err.message);
+    }
+}
+
+exports.deleteUser = async(req, res)=>{
+    try{
+        let result = await user.deleteUser(req.params.id);
         console.log(result)
         return res.json(result);
     }catch(error){

@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const Connect = require("../helper/connection");
 module.exports = class User extends Connect {
 
@@ -107,5 +108,39 @@ module.exports = class User extends Connect {
         }
      } 
      }
+
+    async deleteUser(userId){
+      try{
+        const connection = await this.getConnect();
+        this.user_instance = connection.data;
+        if(userId){
+          let foundUser = await this.user_instance.collection('user').aggregate([{$match:{_id: new ObjectId(userId)}}]).toArray();
+          if(foundUser[0]){
+            let res = await this.user_instance.collection('user').deleteOne({_id: new ObjectId(userId)});
+            return {
+              status:204,
+              message:'user deleted successfully',
+              data:res
+            }
+          }else{
+            return{
+              status:404,
+              message:'user not found'
+            }
+          }
+        }else{
+          return {
+            status:400,
+            message:'you have to send a user id to delete'
+          }
+        }
+     }catch(error){
+        return {
+          status:500,
+          message:'something went wrong, there is a server error',
+          data:error
+        }
+     } 
+    } 
 }
 
