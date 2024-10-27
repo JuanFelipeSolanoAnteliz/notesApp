@@ -10,8 +10,8 @@ const user = new User();
  */
 exports.findAllNotes = async(req, res)=>{
     try{
-        console.log('----------------------------', req.session, '----------------------------');
-        let result = await note.getAllNotesByUser('6718dd9a51d1d0d3a4fa040a');
+        console.log();
+        let result = await note.getAllNotesByUser(req.data._id);
         return res.status(result.status).json(result);
     }catch(error){
         let err = JSON.parse(error.message);
@@ -27,7 +27,7 @@ exports.findAllNotes = async(req, res)=>{
 exports.save = async(req, res)=>{
     try{
         // let result = note.postNewNote(req.body, req.cokiees.id);
-        let result = await note.postNewNote(req.body,'6718dd9a51d1d0d3a4fa040a');
+        let result = await note.postNewNote(req.body,req.data._id);
         
         return res.status(result.status).json(result);
     }catch(error){
@@ -48,7 +48,7 @@ exports.save = async(req, res)=>{
 exports.findNoteById = async(req, res)=>{
     try{
         // let result = note.getOneNoteById(req.params.id, res.cookies.user);
-        let result = await note.getOneNoteById(req.params.id, '6718dd9a51d1d0d3a4fa040a');
+        let result = await note.getOneNoteById(req.params.id, req.data.id);
         return res.status(result.status).json(result);
     }catch(error){
         let err = JSON.parse(error.message);

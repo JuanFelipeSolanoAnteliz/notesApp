@@ -68,18 +68,44 @@ module.exports = class User extends Connect {
     }
     async findExistUser(data){
      try{
-
+        const connection = await this.getConnect();
+        this.user_instance = connection.data;
+        if(data.nickname){
+          const nick = data.nickname;
+          let res = await this.user_instance.collection('user').aggregate([{$match:{nickname:nick}}]).toArray();
+          return {
+            status:200,
+            message:'nickname found correctly',
+            data:res
+          }
+        }
      }catch(error){
-
+        return {
+          status:404,
+          message:'user not found'
+        }
      } 
     }
 
     async findExistEmail(data){
       try{
- 
-      }catch(error){
- 
-      } 
+        const connection = await this.getConnect();
+        this.user_instance = connection.data;
+        if(data.nickname){
+          const mail = data.email;
+          let res = await this.user_instance.collection('user').aggregate([{$match:{email:mail}}]).toArray();
+          return {
+            status:200,
+            message:'email found correctly',
+            data:res
+          }
+        }
+     }catch(error){
+        return {
+          status:404,
+          message:'user not found'
+        }
+     } 
      }
 }
 

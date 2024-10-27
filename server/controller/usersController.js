@@ -30,10 +30,21 @@ exports.addNewUser = async (req, res)=>{
 
 exports.login= async(req,res)=>{
     try{
-        let result = await user;
-        
-    }catch(error){
+        let resultEmail = await user.findExistEmail(req.body)
+        if(resultEmail.status !== 200 ) return res.status(resultEmail.status).json(resultEmail);
+        let resEmailAndPassword = await bcrypt.compare(req.body.password, resultEmail.data.password);
+        if(!resEmailAndPassword) return res.status(406).json({status: 406, message: "Invalid password"});
 
+        delete resultEmail.data.password;
+        const SECRET_KEY =  fs.readFileSync('./certificate.csr');
+        const token = jwt.sign(resultEmail.data, SECRET_KEY.toString('utf8'), {expiresIn: 1800000});
+        req.session.auth = token;
+
+        return res.status(resultEmail.status).json({status: resultEmail.status, message: 'You have successfully logged in'})
+
+    }catch(error){
+        let err = JSON.parse(error.message);
+        return res.status(err.status).json(err.message);
     }
 }
 
