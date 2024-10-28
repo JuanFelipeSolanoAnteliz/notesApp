@@ -28,7 +28,8 @@ const printNote = async(id) =>{
     }
     let details = await fetchOneNote(id);
     const note = document.querySelector('.note');
-    note.innerHTML = /*html*/`
+    console.log(note)
+    return note.innerHTML = /*html*/`
         <h1>${details.title}</h1>
         <div class="content">
             <p>${details.body}</p>

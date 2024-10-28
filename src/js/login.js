@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let object  = Object.fromEntries(new FormData(e.target));
         console.log(object);
 
+
         let config={
             method:'POST',
             headers:{
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(request)
         let response = await request.json();
         console.log(response);
-        window.location.href='https://localhost:5000/notes'
+        window.location.href='https://localhost:5000/notes';
     });
 });
 
