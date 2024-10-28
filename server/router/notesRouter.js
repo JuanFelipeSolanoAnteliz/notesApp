@@ -3,6 +3,9 @@ const controller = require('../controller/noteController');
 const versionMiddleware = require('../middleware/versionate');
 const layout = require('../view/homeView');
 const detailLayout = require('../view/detailView');
+const { auth } = require('../middleware/decodedJWT');
+
+router.use(auth);
 
 router.get('/', versionMiddleware('1.0.0'), controller.findAllNotes);
 router.post('/', versionMiddleware('1.0.0'), controller.save);

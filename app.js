@@ -3,7 +3,7 @@ const { join } = require('path')
 const https = require('https');
 const fs = require('fs');
 const session = require('./server/middleware/sessionConfig');
-const { auth } = require('./server/middleware/decodedJWT');
+// const { auth } = require('./server/middleware/decodedJWT');
 const cors = require('cors');
 const app = express();
 
@@ -22,7 +22,7 @@ app.use('/css', express.static(join(__dirname, 'src/css')))
 app.use('/js', express.static(join(__dirname, 'src/js')))
 app.use('/storage', express.static(join(__dirname, 'src/storage')))
 
-app.use('/notes', auth,(req, res, next)=>{
+app.use('/notes', (req, res, next)=>{
     req.__dirname = __dirname;
     next();
 },noteRouter)
