@@ -30,8 +30,9 @@ exports.addNewUser = async (req, res)=>{
 
 exports.login= async(req,res)=>{
     try{
-        let resultEmail = await user.findExistEmail(req.body)
-        console.log(resultEmail)
+        let resultEmail = await user.findExistEmail(req.body);
+        console.log(req.body)
+        console.log('---controller---',resultEmail,'---controller---')
         if(resultEmail.status !== 200 ) return res.status(resultEmail.status).json(resultEmail);
         console.log(req.body.password, resultEmail.data[0].password)
         let resEmailAndPassword = await bcrypt.compare(`${req.body.password}`, resultEmail.data[0].password);
