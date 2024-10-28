@@ -94,7 +94,9 @@ module.exports = class User extends Connect {
         this.user_instance = connection.data;
         if(data.nickname){
           const mail = data.email;
+          console.log(data)
           let res = await this.user_instance.collection('user').aggregate([{$match:{email:mail}}]).toArray();
+          if(!res[0]) return{status:404, message:'this user does not exist, you have to sing up first'}
           return {
             status:200,
             message:'email found correctly',
@@ -141,6 +143,8 @@ module.exports = class User extends Connect {
           data:error
         }
      } 
-    } 
+    }
+    
+
 }
 

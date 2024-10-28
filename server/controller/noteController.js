@@ -2,6 +2,23 @@ const Note = require('../model/noteModel');
 const note = new Note();
 const User = require('../model/usersModel');
 const user = new User();
+const History = require('../model/historyModel');
+const history = new History();
+
+/**
+ * 
+ * @method findAllHistory Obtiene historial
+ * @description todas las versiones de una nota especifica
+ */
+exports.getHistory = async(req, res)=>{
+    try{
+        let result = await history.getHistoryById(req.params.id);
+        return res.status(result.status).json(result);
+    }catch(error){
+        let err = JSON.parse(error.message);
+        return res.status(err.status).json(err.message);
+    }
+}
 
 /**
  * 
@@ -10,7 +27,7 @@ const user = new User();
  */
 exports.findAllNotes = async(req, res)=>{
     try{
-        console.log();
+        console.log('---------------',req.data._id,'---------------');
         let result = await note.getAllNotesByUser(req.data._id);
         return res.status(result.status).json(result);
     }catch(error){
@@ -47,8 +64,9 @@ exports.save = async(req, res)=>{
  */
 exports.findNoteById = async(req, res)=>{
     try{
-        // let result = note.getOneNoteById(req.params.id, res.cookies.user);
-        let result = await note.getOneNoteById(req.params.id, req.data.id);
+        // let result = note.getOneNoteById(req.params.id, res.cookies.user)
+        console.log(req.data)
+        let result = await note.getOneNoteById(req.params.id, req.data._id);
         return res.status(result.status).json(result);
     }catch(error){
         let err = JSON.parse(error.message);
@@ -66,6 +84,18 @@ exports.findNotesMatchingTitleOrDescription = async(req, res)=>{
     try{
         
     }catch(error){
+        let err = JSON.parse(error.message);
+        return res.status(err.status).json(err.message);
+    }
+}
+
+exports.updateNote= async (req, res)=>{
+    try{
+        const result = await note.updateNote(req.params.id, req.data._id,req.body);
+        return res.status(result.status).json(result);
+
+    }catch(error){
+        console.log(error);
         let err = JSON.parse(error.message);
         return res.status(err.status).json(err.message);
     }

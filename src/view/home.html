@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación de Notas</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="../js/home.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Notes</h1>
+            <div class="header-icons">
+                <button class="icon-button"><img src="../storage/img/search.svg" alt=""></button>
+                <button class="icon-button"><img src="../storage/img/info_icon.svg" alt=""></button>
+            </div>
+        </header>
+        <main id="main-content">
+            <div id="empty-state" class="empty-state">
+                <div class="illustration">
+                    <img src="../storage/img/Group 3.svg" alt="">
+                </div>
+            </div>
+            <div id="notes-container" class="notes-container"></div>
+        </main>
+        <button id="add-button" class="add-button">+</button>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Add New Note</h2>
+            <form id="note-form">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="body">note content:</label>
+                    <textarea id="body" name="body" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancel-button">Cancel</button>
+                    <button type="submit">Add Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>

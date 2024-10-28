@@ -36,6 +36,7 @@ module.exports = class Notes extends connect{
     async postNewNote(data,userId){
         try{
             console.log(data)
+            console.log(userId)
             const connection = await this.getConnect();
             // console.log(connection.data.collection('note'))
             let newNote = {
@@ -88,4 +89,50 @@ module.exports = class Notes extends connect{
         }
     }
 
+    async updateNote(noteId,idUser,data){
+        try{
+          const connection = await this.getConnect();
+          this.notes_instance = connection.data;
+          console.log(noteId,'-------------',idUser,'-----------------------')
+          let findNote = await this.notes_instance.collection('note').aggregate([{$match:{_id:new ObjectId(noteId),user:new ObjectId(idUser)}}]).toArray()
+          if(findNote[0]){
+            let save = findNote[0];
+            console.log(save)
+            let backupHistory={
+                    user: new ObjectId(idUser),
+                    title: data.title || save.title,
+                    body:  data.body || save.body,
+                    date: new Date(),
+                    note: new ObjectId(noteId)
+                  
+            }
+            if(!data)return{ status:400, message:'bad request, you have to enter a body in the query'};
+            let history = await this.notes_instance.collection('history').insertOne(backupHistory);
+            let addHistory = await this.notes_instance.collection('note').updateOne(
+                {_id: new ObjectId(noteId)}, {$push: {history: new ObjectId(history.isertedId)}}
+            );
+            let res = await this.notes_instance.collection('note').updateOne({_id: new ObjectId(noteId)},{$set:data});
+            
+            return {
+                status:214,
+                message:'note updated successfully',
+                data:res
+            }
+          }else{
+            return{
+                status: 404,
+                message:'note not found'
+            }
+          }
+
+        }catch(error){
+            console.log(error);
+            return {
+                status:500,
+                message:'something went wrong, there is a server error',
+                data:error
+            }
+        }  
+          
+      }
 }

@@ -31,9 +31,10 @@ exports.addNewUser = async (req, res)=>{
 exports.login= async(req,res)=>{
     try{
         let resultEmail = await user.findExistEmail(req.body)
+        console.log(resultEmail)
         if(resultEmail.status !== 200 ) return res.status(resultEmail.status).json(resultEmail);
-        // console.log(req.body.password, resultEmail.data[0].password)
-        let resEmailAndPassword = await bcrypt.compare(req.body.password, resultEmail.data[0].password);
+        console.log(req.body.password, resultEmail.data[0].password)
+        let resEmailAndPassword = await bcrypt.compare(`${req.body.password}`, resultEmail.data[0].password);
         if(!resEmailAndPassword) return res.status(406).json({status: 406, message: "Invalid password"});
 
         delete resultEmail.data.password;
