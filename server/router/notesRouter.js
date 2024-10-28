@@ -11,4 +11,5 @@ router.put('/:id', versionMiddleware('1.0.0'), controller.updateNote);
 router.get('/:id/history', versionMiddleware('1.0.0'), controller.getHistory);
 
 router.use(layout);
+router.use('/detail', detailLayout);
 module.exports = router;

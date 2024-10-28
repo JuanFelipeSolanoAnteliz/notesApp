@@ -106,7 +106,8 @@ main.addEventListener( 'click', async e =>{
             localStorage.setItem('note', JSON.stringify(res.data[0]));
             return res.data[0];
         }
-        await fetchOneNote() 
+        await fetchOneNote()
+        window.location.href= `/detail` 
     }
 
 })
@@ -123,7 +124,7 @@ const printNotes = async()=>{
     const colorSeleccionado = obtenerElementoAleatorio(colores);
     
     data.forEach(element => {
-        plantilla+= /*html*/ `<div class="note" id="${element._id}" style="background-color: ${colorSeleccionado};">
+        plantilla+= /*html*/ `<div class="note" id="${element._id}" style="background-color: ${ obtenerElementoAleatorio(colores)};">
         <p>${element.title}</p>
         <button id="${element._id}" class="delete-button">🗑️</button>
     </div>`;
