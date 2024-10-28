@@ -103,16 +103,29 @@ main.addEventListener( 'click', async e =>{
 
             let req = await fetch( uri, config );
             let res = await req.json();
+            console.log(res)
             console.log(res.data[0]);
             localStorage.setItem('note', JSON.stringify(res.data[0]));
             return res.data[0];
         }
         await fetchOneNote()
         window.location.href= `/detail` 
+    }else if( e.target.classList === "delete-button" || e.target.tagName === 'IMG'){
+        console.log('borrando');
+        let config ={
+            method:'DELETE',
+            headers:{
+                'Content-Type': 'application/json',
+                'x-version': '1.0.0'  
+            }
+        };
+        let uri = `${location.href}`
+        console.log(uri)
     }
 
 })
 console.log(main);
+
 const printNotes = async()=>{
     let plantilla = '';
     let data = await fecthNotas();
@@ -127,7 +140,7 @@ const printNotes = async()=>{
     data.forEach(element => {
         plantilla+= /*html*/ `<div class="note" id="${element._id}" style="background-color: ${ obtenerElementoAleatorio(colores)};">
         <p>${element.title}</p>
-        <button id="${element._id}" class="delete-button"><img src="../storage/img/delete.svg"></button>
+        <button id="${element._id}" class="delete-button"><img id="${element._id}" src="../storage/img/delete.svg"></button>
     </div>`;
     });
     

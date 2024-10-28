@@ -133,6 +133,25 @@ module.exports = class Notes extends connect{
                 data:error
             }
         }  
-          
+      };
+
+      async deleteNote(noteId, userId){
+        try{
+            const connection = await this.getConnect();
+            this.notes_instance = connection.data;
+            let res = this.notes_instance.collection('note').deleteOne({_id: new ObjectId(noteId), user: new ObjectId(userId)});
+            return {
+                status: 204,
+                message:'note deleted succsessfully',
+                data: res
+            };
+
+        }catch(error){
+            return {
+                status:500,
+                message:'server error',
+                error: error
+            };
+        };
       }
 }

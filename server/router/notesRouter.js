@@ -9,6 +9,7 @@ router.post('/', versionMiddleware('1.0.0'), controller.save);
 router.get('/:id', versionMiddleware('1.0.0'), controller.findNoteById);
 router.put('/:id', versionMiddleware('1.0.0'), controller.updateNote);
 router.get('/:id/history', versionMiddleware('1.0.0'), controller.getHistory);
+router.delete('/:id', versionMiddleware('1.0.0'), controller.deleteNoteById)
 
 router.use(layout);
 router.use('/detail', detailLayout);

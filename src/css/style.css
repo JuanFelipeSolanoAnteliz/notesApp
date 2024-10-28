@@ -112,7 +112,6 @@ header h1 {
 .modal-content {
     background-color: #fefefe;
     margin: 5% auto;
-    
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
@@ -184,16 +183,19 @@ main {
 
 .delete-button {
     position: absolute;
-    bottom: -40px;
     right: 10px;
     background: none;
     border: none;
     font-size: 20px;
     cursor: pointer;
-    /* transition: bottom 0.3s ease; */
+
 }
 
-.note:hover .delete-button {
-    bottom: 10px;
+.delete-button img {
+    height: 30px;
 }
+
+/* .note:hover .delete-button {
+    bottom: 10px;
+} */
 

@@ -102,47 +102,6 @@ exports.updateNote= async (req, res)=>{
 }
 
 
-
-
-
-
-
-
-
-
-/**
- * 
- * @method findNoteChangeHistory Obtiene historial de cambios de una nota
- * @description Obtiene historial de cambios de una nota
- */
-exports.findNoteChangeHistory = async(req, res)=>{
-    try{
-
-    }catch(error){
-        let err = JSON.parse(error.message);
-        return res.status(err.status).json(err.message);
-    }
-}
-
-/**
- * 
- * @method updateNoteById Actualizar nota
- * @description Actualiza una nota especificada por su id
- */
-exports.updateNoteById = async(req, res)=>{
-    try{
-
-    }catch(error){
-        let err = JSON.parse(error.message);
-        return res.status(err.status).json(err.message);
-    }
-}
-
-
-
-
-
-
 /**
  * 
  * @method deleteNoteById Eliminar nota
@@ -150,7 +109,10 @@ exports.updateNoteById = async(req, res)=>{
  */
 exports.deleteNoteById = async(req, res)=>{
     try{
-
+        let search = await user.getOneNoteById(req.params.id);
+        if(search.status === 404)return 'can not delete this note, it was not found';
+        let result = await user.deleteUser(req.params.id);
+        return res.status(204).json(result);
     }catch(error){
         let err = JSON.parse(error.message);
         return res.status(err.status).json(err.message);
