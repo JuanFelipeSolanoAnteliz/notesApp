@@ -15,7 +15,9 @@ const userRouter = require('./server/router/usersRouter');
 const noteRouter = require('./server/router/notesRouter');
 
 
-
+app.use('/css', express.static(join(__dirname, 'src/css')))
+app.use('/js', express.static(join(__dirname, 'src/js')))
+app.use('/storage', express.static(join(__dirname, 'src/storage')))
 
 app.use('/notes', auth,(req, res, next)=>{
     req.__dirname = __dirname;
@@ -27,14 +29,17 @@ app.use('/users', (req, res, next)=>{
     next(); 
 },userRouter);
 
+app.use('/', (req, res, next)=>{
+    req.__dirname = __dirname;
+    next(); 
+},noteRouter);
+
 const httpsServer = https.createServer({
     key: privateKey,
     cert: certificate
 },app);
 
-app.get('/', (req, res)=>{
-    res.send('funciono pai')
-})
+
 
 const port = 5000; 
 httpsServer.listen(port, () => {

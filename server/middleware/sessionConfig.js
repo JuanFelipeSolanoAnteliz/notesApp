@@ -7,5 +7,5 @@ module.exports = session ({
     secret: SECRET_KEY.toString('utf8'),
     resave: false,
     saveUninitialized:true,
-    cookie: { secure: true, maxAge: 18000000}
+    cookie: { secure: true, maxAge: 18000000,httpOnly: true, sameSite: 'lax'}
 });
