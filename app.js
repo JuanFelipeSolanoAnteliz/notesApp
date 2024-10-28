@@ -46,7 +46,7 @@ const httpsServer = https.createServer({
 
 const port = 5000; 
 httpsServer.listen(port, () => {
-    console.log(`Servidor HTTPS escuchando en el puerto https://localhost:${port}`);
+    console.log(`Servidor HTTPS escuchando en el puerto https://localhost:${port}/users`);
 });
 
 console.log(new Date())

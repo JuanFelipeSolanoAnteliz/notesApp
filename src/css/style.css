@@ -159,3 +159,41 @@ header h1 {
     background-color: #f0f0f0;
 }
 
+main {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+}
+
+.note {
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.note p {
+    margin-bottom: 20px;
+
+}
+
+.delete-button {
+    position: absolute;
+    bottom: -40px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: bottom 0.3s ease;
+}
+
+.note:hover .delete-button {
+    bottom: 10px;
+}
+

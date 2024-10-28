@@ -64,3 +64,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateView();
 });
+
+const fecthNotas = async()=>{
+    let config={
+        method:'GET',
+        headers:{
+            'Content-Type': 'application/json',
+            'x-version': '1.0.0'  
+        }
+    };
+
+    let uri = `https://localhost:5000/notes`;
+    let request = await fetch(uri, config);
+    console.log(request)
+    let response = await request.json();
+    console.log(response);
+    return response.data;
+}
+
+await fecthNotas()
+
+
+
+const main = document.querySelector('#main-content');
+main.addEventListener( 'click', async e =>{
+    console.log(e.target)
+    if(e.target.classList.value === "note"){
+        const fetchOneNote = async()=>{
+            const uri = `https://localhost:5000/notes/${e.target.id}`;
+            const config ={
+                method:'GET',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'x-version': '1.0.0'  
+                }
+            };
+
+            let req = await fetch( uri, config );
+            let res = await req.json();
+            console.log(res.data[0]);
+            localStorage.setItem('note', JSON.stringify(res.data[0]));
+            return res.data[0];
+        }
+        await fetchOneNote() 
+    }
+
+})
+console.log(main);
+const printNotes = async()=>{
+    let plantilla = '';
+    let data = await fecthNotas();
+
+    const colores = ["#FFC0CB", "#B69CFF", "#FFF599", "#91F48F", "#FF9E9E"];
+    const obtenerElementoAleatorio =  (arr) =>{
+    const indiceAleatorio = Math.floor(Math.random() * arr.length);
+    return arr[indiceAleatorio];
+    }
+    const colorSeleccionado = obtenerElementoAleatorio(colores);
+    
+    data.forEach(element => {
+        plantilla+= /*html*/ `<div class="note" id="${element._id}" style="background-color: ${colorSeleccionado};">
+        <p>${element.title}</p>
+        <button id="${element._id}" class="delete-button">🗑️</button>
+    </div>`;
+    });
+    
+    main.innerHTML = plantilla;
+
+}
+
+await printNotes();
+

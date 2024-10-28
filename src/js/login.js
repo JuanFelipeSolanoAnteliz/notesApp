@@ -36,3 +36,5 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href='https://localhost:5000/notes'
     });
 });
+
+
