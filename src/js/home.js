@@ -79,6 +79,7 @@ const fecthNotas = async()=>{
     console.log(request)
     let response = await request.json();
     console.log(response);
+    if(response.status=== 401) window.location.href='/users';
     return response.data;
 }
 
@@ -116,7 +117,7 @@ const printNotes = async()=>{
     let plantilla = '';
     let data = await fecthNotas();
 
-    const colores = ["#FFC0CB", "#B69CFF", "#FFF599", "#91F48F", "#FF9E9E"];
+    const colores = ["#FFC0CB", "#B69CFF", "#FFF599", "#91F48F", "#FF9E9E", "#9EFFFF"];
     const obtenerElementoAleatorio =  (arr) =>{
     const indiceAleatorio = Math.floor(Math.random() * arr.length);
     return arr[indiceAleatorio];
@@ -126,7 +127,7 @@ const printNotes = async()=>{
     data.forEach(element => {
         plantilla+= /*html*/ `<div class="note" id="${element._id}" style="background-color: ${ obtenerElementoAleatorio(colores)};">
         <p>${element.title}</p>
-        <button id="${element._id}" class="delete-button">🗑️</button>
+        <button id="${element._id}" class="delete-button"><img src="../storage/img/delete.svg"></button>
     </div>`;
     });
     
