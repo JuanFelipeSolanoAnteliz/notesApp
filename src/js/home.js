@@ -7,33 +7,39 @@ addButton.addEventListener('click', async e =>{
 
 const main = document.querySelector('#main-content');
 const fecthNotas = async()=>{
-    let config={
-        method:'GET',
-        headers:{
-            'Content-Type': 'application/json',
-            'x-version': '1.0.0'  
-        }
-    };
+    try{
+        let config={
+            method:'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'x-version': '1.0.0'  
+            }
+        };
 
-    let uri = `https://localhost:5000/notes`;
-    let request = await fetch(uri, config);
-    let response = await request.json();
-    if(response.status=== 401) window.location.href='/users';
-    if(response.status === 404) main.innerHTML =/*html*/ `
-            <div id="empty-state" class="empty-state">
-                <div class="illustration">
-                    <img src="../storage/img/Group 3.svg" alt="">
+        let uri = `https://localhost:5000/notes`;
+        let request = await fetch(uri, config);
+        let response = await request.json();
+        if(response.status=== 401) window.location.href='/users';
+        if(response.status === 404) main.innerHTML =/*html*/ `
+                <div id="empty-state" class="empty-state">
+                    <div class="illustration">
+                        <img src="../storage/img/Group 3.svg" alt="">
+                    </div>
                 </div>
-            </div>
-            <div id="notes-container" class="notes-container"></div>`;
-    console.log(response.data);
-    return response.data;
+                <div id="notes-container" class="notes-container"></div>`;
+        console.log(response.data);
+        return response.data;
+    }catch(error){
+        console.log(error)
+        return error
+    }
 }
 await fecthNotas();
 
 
 const printNotes = async()=>{
-    console.log('hola')
+    try{
+        console.log('hola')
     let plantilla = '';
     let data = await fecthNotas();
     console.log('se hizo nuevamente la peticion...')
@@ -62,8 +68,11 @@ const printNotes = async()=>{
         main.innerHTML = plantilla;
     
     }
-
-   
+    }catch(error){
+        console.log(error)
+        return error
+    }
+    
 }
 
 await printNotes();

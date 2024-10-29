@@ -5,7 +5,11 @@ const User = require('../model/usersModel');
 const user = new User();
 
 exports.addNewUser = async (req, res)=>{
-    try{    
+    try{
+        let validateNickname = await user.findExistUser(req.body);
+        if(validateNickname.data[0]) return {status:406, message:'Nickname not available, try to user a different one'};
+        let validateEmail = await user.findExistEmail(req.body);
+        if(validateEmail.data[0]) return  {status:406, message:'Email not available, try to user a different one'}   
         req.body.password = await bcrypt.hash(req.body.password,10);
         let resultPost = await user.createUser(req.body);
         if(!resultPost.status == 201) return res.status(resultPost.status).json(resultPost);
@@ -32,7 +36,6 @@ exports.login= async(req,res)=>{
     try{
         let resultEmail = await user.findExistEmail(req.body);
         console.log(req.body)
-        console.log('---controller---',resultEmail,'---controller---')
         if(resultEmail.status !== 200 ) return res.status(resultEmail.status).json(resultEmail);
         console.log(req.body.password, resultEmail.data[0].password)
         let resEmailAndPassword = await bcrypt.compare(`${req.body.password}`, resultEmail.data[0].password);

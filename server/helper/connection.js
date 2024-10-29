@@ -7,7 +7,7 @@ module.exports= class  Connect{
     }
     async getConnect(){
         try{
-            const client = await MongoClient.connect(this.url, { useUnifiedTopology: true });
+            const client = await MongoClient.connect(this.url);
             const db = client.db(this.dbName);
             return {
                 status: 200, 

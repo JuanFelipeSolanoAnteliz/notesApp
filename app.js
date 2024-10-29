@@ -49,4 +49,7 @@ httpsServer.listen(port, () => {
     console.log(`Servidor HTTPS escuchando en el puerto https://localhost:${port}/users`);
 });
 
-console.log(new Date())
+setInterval(() => {
+    const memoryUsage = process.memoryUsage();
+    console.log(`Uso de Memoria - Heap: ${Math.round(memoryUsage.heapUsed / 1024 / 1024)} MB`);
+}, 60000);  // Cada minuto
