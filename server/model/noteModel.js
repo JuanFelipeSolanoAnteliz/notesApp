@@ -139,9 +139,9 @@ module.exports = class Notes extends connect{
         try{
             const connection = await this.getConnect();
             this.notes_instance = connection.data;
-            let res = this.notes_instance.collection('note').deleteOne({_id: new ObjectId(noteId), user: new ObjectId(userId)});
+            let res = await this.notes_instance.collection('note').deleteOne({_id: new ObjectId(noteId), user: new ObjectId(userId)});
             return {
-                status: 204,
+                status: 200,
                 message:'note deleted succsessfully',
                 data: res
             };

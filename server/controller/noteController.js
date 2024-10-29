@@ -109,10 +109,11 @@ exports.updateNote= async (req, res)=>{
  */
 exports.deleteNoteById = async(req, res)=>{
     try{
-        let search = await user.getOneNoteById(req.params.id);
+        let search = await note.getOneNoteById(req.params.id, req.data._id);
         if(search.status === 404)return 'can not delete this note, it was not found';
-        let result = await user.deleteUser(req.params.id);
-        return res.status(204).json(result);
+        let result = await note.deleteNote(req.params.id, req.data._id);
+        console.log(result)
+        return res.status(200).json(result);
     }catch(error){
         let err = JSON.parse(error.message);
         return res.status(err.status).json(err.message);

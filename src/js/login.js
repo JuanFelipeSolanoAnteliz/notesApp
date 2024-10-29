@@ -31,10 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let uri = `https://localhost:5000/users/login`;
         let request = await fetch(uri, config);
-        console.log(request)
         let response = await request.json();
-        console.log(response);
-        window.location.href='https://localhost:5000/notes';
+        if(response.status === 406) console.log({ status:406, message:'the password dos not match'});           
+        window.location.href='https://localhost:5000/notes';    
     });
 });
 
