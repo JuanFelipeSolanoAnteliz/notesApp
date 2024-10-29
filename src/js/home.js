@@ -1,7 +1,7 @@
 
 const addButton = document.getElementById('add-button');
 addButton.addEventListener('click', async e =>{
-    console.log('si')
+    window.location.href = '/addNote'
 })
 
 

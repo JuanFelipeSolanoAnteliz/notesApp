@@ -32,7 +32,7 @@ const printNote = async(id) =>{
     return note.innerHTML = /*html*/`
         <h1>${details.title}</h1>
         <div class="content">
-            <p>${details.body}</p>
+            <p>${details.content}</p>
         </div>
     `;
 }
