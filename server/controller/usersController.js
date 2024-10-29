@@ -7,9 +7,9 @@ const user = new User();
 exports.addNewUser = async (req, res)=>{
     try{
         let validateNickname = await user.findExistUser(req.body);
-        if(validateNickname.data[0]) return {status:406, message:'Nickname not available, try to user a different one'};
+        if(validateNickname.data.lenght > 0) return {status:406, message:'Nickname not available, try to user a different one'};
         let validateEmail = await user.findExistEmail(req.body);
-        if(validateEmail.data[0]) return  {status:406, message:'Email not available, try to user a different one'}   
+        if(validateEmail.data) return  {status:406, message:'Email not available, try to user a different one'}   
         req.body.password = await bcrypt.hash(req.body.password,10);
         let resultPost = await user.createUser(req.body);
         if(!resultPost.status == 201) return res.status(resultPost.status).json(resultPost);
@@ -19,7 +19,7 @@ exports.addNewUser = async (req, res)=>{
         const token = jwt.sign(req.body, SECRET_KEY.toString('utf8'),{ expiresIn : 18000000});
         req.session.auth = token;
         req.session.save((err) => {
-          if (err) {
+        if (err) {
             console.error('Error al guardar la sesión:', err);
             return res.status(500).json({ message: "Error al guardar la sesión" });
           }
