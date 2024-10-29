@@ -100,8 +100,8 @@ module.exports = class Notes extends connect{
             console.log(save)
             let backupHistory={
                     user: new ObjectId(idUser),
-                    title: data.title || save.title,
-                    body:  data.body || save.body,
+                    title: save.title || save.title,
+                    body:  save.content || save.content,
                     date: new Date(),
                     note: new ObjectId(noteId)
                   

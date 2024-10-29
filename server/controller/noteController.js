@@ -91,7 +91,7 @@ exports.findNotesMatchingTitleOrDescription = async(req, res)=>{
 
 exports.updateNote= async (req, res)=>{
     try{
-        const result = await note.updateNote(req.params.id, req.data._id,req.body);
+        const result = await note.updateNote(req.params.id, req.data._id, req.body);
         return res.status(result.status).json(result);
 
     }catch(error){
