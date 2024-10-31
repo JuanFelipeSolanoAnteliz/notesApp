@@ -15,8 +15,8 @@ exports.addNewUser = async (req, res)=>{
         if(!resultPost.status == 201) return res.status(resultPost.status).json(resultPost);
         delete req.body.password;
         req.body._id = resultPost.data.insertedId;
-        const SECRET_KEY = fs.readFileSync('./certificate.csr');
-        const token = jwt.sign(req.body, SECRET_KEY.toString('utf8'),{ expiresIn : 18000000});
+        // const SECRET_KEY = fs.readFileSync('./certificate.csr');
+        const token = jwt.sign(req.body, process.env.SECRET_KEY,{ expiresIn : 18000000});
         req.session.auth = token;
         req.session.save((err) => {
         if (err) {
@@ -42,11 +42,17 @@ exports.login= async(req,res)=>{
         if(!resEmailAndPassword) return res.status(406).json({status: 406, message: "Invalid password"});
 
         delete resultEmail.data.password;
-        const SECRET_KEY =  fs.readFileSync('./certificate.csr');
-        const token = jwt.sign(resultEmail.data[0], SECRET_KEY.toString('utf8'), {expiresIn: 1800000});
+        // const SECRET_KEY =  fs.readFileSync('./certificate.csr');
+        const token = jwt.sign(resultEmail.data[0], process.env.SECRET_KEY, {expiresIn: 1800000});
         req.session.auth = token;
-
-        return res.status(resultEmail.status).json({status: resultEmail.status, message: 'You have successfully logged in'})
+        req.session.save((err) => {
+            if (err) {
+                console.error('Error al guardar la sesión:', err);
+                return res.status(500).json({ message: "Error al guardar la sesión" });
+            }
+            console.log('Sesión guardada correctamente:', req.session);
+            res.status(200).json({ message: 'Logged in successfully', token:req.session.auth});
+        });
 
     }catch(error){
         console.log(error)

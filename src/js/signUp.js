@@ -32,12 +32,12 @@ export function togglePassword(inputId) {
           body:JSON.stringify(object)
       };
 
-      let uri = `https://localhost:5000/users`;
+      let uri = `http://localhost:5000/users`;
       let request = await fetch(uri, config);
       console.log(request)
       let response = await request.json();
       if(response.status === 406) console.log({ status:406, message:'the password dos not match'});           
-      window.location.href='https://localhost:5000/notes';
+      window.location.href='http://localhost:5000/notes';
       
     }
 

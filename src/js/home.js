@@ -16,7 +16,7 @@ const fecthNotas = async()=>{
             }
         };
 
-        let uri = `https://localhost:5000/notes`;
+        let uri = `http://localhost:5000/notes`;
         let request = await fetch(uri, config);
         let response = await request.json();
         if(response.status=== 401) window.location.href='/users';
@@ -100,7 +100,7 @@ main.addEventListener( 'click', async e =>{
     
     // ----------------------- fetch one Note --------------------------
         const fetchOneNote = async()=>{
-        const uri = `https://localhost:5000/notes/${e.target.id}`;
+        const uri = `http://localhost:5000/notes/${e.target.id}`;
         const config ={
             method:'GET',
             headers:{

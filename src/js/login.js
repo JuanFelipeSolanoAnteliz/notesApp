@@ -24,17 +24,18 @@ document.addEventListener('DOMContentLoaded', function() {
             method:'POST',
             headers:{
                 'Content-Type': 'application/json',
-                'x-version': '1.0.0'  
+                'x-version': '1.0.0',
+                
             },
             body:JSON.stringify(object)
         };
 
-        let uri = `https://localhost:5000/users/login`;
+        let uri = `http://localhost:5000/users/login`;
         let request = await fetch(uri, config);
-        console.log(request)
         let response = await request.json();
+        console.log(response)
         if(response.status === 406) console.log({ status:406, message:'the password dos not match'});           
-        window.location.href='https://localhost:5000/notes';
+        window.location.href='http://localhost:5000/notes';
     });
 });
 

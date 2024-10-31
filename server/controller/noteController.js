@@ -27,7 +27,7 @@ exports.getHistory = async(req, res)=>{
  */
 exports.findAllNotes = async(req, res)=>{
     try{
-        console.log('---------------',req.data._id,'---------------');
+        console.log('------data id---------',req.data._id,'-------data id--------');
         let result = await note.getAllNotesByUser(req.data._id);
         return res.status(result.status).json(result);
     }catch(error){
