@@ -82,3 +82,4 @@ exports.deleteUser = async(req, res)=>{
         return res.status(err.status).json(err.message);
     }
 }
+

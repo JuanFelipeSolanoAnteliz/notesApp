@@ -89,7 +89,7 @@ main.addEventListener( 'click', async e =>{
                     'x-version': '1.0.0'  
                 }
             };
-            let uri = `/notes/${e.target.id}`
+            let uri = `http://localhost:5000/notes/${e.target.id}`
             console.log(uri)
             let req = await fetch(uri, config);
             let res = await req.json();

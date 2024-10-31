@@ -80,12 +80,17 @@ exports.findNoteById = async(req, res)=>{
  * @method findNotesMatchingTitleOrDescription Obtiene una note por su titulo o descripcion
  * @description Obtiene un array con todas las notes que coinciden con la busqueda del titulo o descripcion
  */
-exports.findNotesMatchingTitleOrDescription = async(req, res)=>{
+exports.searchMatch = async(req, res)=>{
+    console.log('search controler')
+    if (!req.query.searchTerm) {
+        return res.status(400).json({ message: 'Please provide a searchTerm query parameter.' });
+    }
     try{
-        
+        let result = await note.getNoteBySearch(req.query.searchTerm);
+        console.log(result)
+        return res.json(result);
     }catch(error){
-        let err = JSON.parse(error.message);
-        return res.status(err.status).json(err.message);
+        return {status:500, message:'server error', errror:error }
     }
 }
 

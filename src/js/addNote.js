@@ -31,7 +31,7 @@ confirmSaveButton.addEventListener('click', async () => {
             body: JSON.stringify(newNote)
         };
 
-        let uri = `https://localhost:5000/notes`;
+        let uri = `http://localhost:5000/notes`;
         let request = await fetch(uri, config);
         let response = await request.json();
         window.location.href = '/'

@@ -40,7 +40,7 @@ keepButton.addEventListener('click', async() => {
             body: JSON.stringify(body)
         };
 
-        let uri = `https://localhost:5000/notes/${noteId}`;
+        let uri = `http://localhost:5000/notes/${noteId}`;
         let request = await fetch(uri, config);
         let response = await request.json();
         window.location.href = '/'
@@ -62,7 +62,7 @@ const data = JSON.parse(localStorage.getItem('note'));
 console.log(data._id) 
 const printNote = async(id) =>{
     const fetchOneNote = async(id)=>{
-        const uri = `https://localhost:5000/notes/${id}`;
+        const uri = `http://localhost:5000/notes/${id}`;
         const config ={
             method:'GET',
             headers:{

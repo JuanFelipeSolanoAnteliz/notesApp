@@ -154,4 +154,30 @@ module.exports = class Notes extends connect{
             };
         };
       }
+      async getNoteBySearch(search){
+        try{
+            const connection = await this.getConnect();
+            this.notes_instance = connection.data;
+            let res = await this.notes_instance.collection('note').find({
+                $or: [
+                    { title: { $regex: `${search}`, $options: 'i' } },
+                    { description: { $regex: `${search}`, $options: 'i' } }
+                ]
+            }).toArray();
+            if(res.lenght === 0 || !res)return { status:404, message:`no suggestions for ${search}`}
+            return {
+                status: 200,
+                message:'there is some suggestion for your search',
+                data:res
+            }
+        }catch(error){
+            console.log(error)
+            return {
+                status:500,
+                message:' something went wrong, server error',
+                error:error
+            }
+        }
+        
+      }
 }
