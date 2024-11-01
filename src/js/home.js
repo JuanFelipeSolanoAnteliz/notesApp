@@ -77,6 +77,12 @@ const printNotes = async()=>{
 
 await printNotes();
 
+const search = document.querySelector('.icon-button');
+
+search.addEventListener('click', async e =>{
+    if( e.target.tagName === 'IMG' ) console.log('searching')
+    window.location.href = 'http://localhost:5000/notes/search'
+})
 
 main.addEventListener( 'click', async e =>{
     // -------------------------- delete ------------------------------- 

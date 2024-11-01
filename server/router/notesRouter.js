@@ -4,6 +4,7 @@ const versionMiddleware = require('../middleware/versionate');
 const layout = require('../view/homeView');
 const detailLayout = require('../view/detailView');
 const addLayout = require('../view/addNoteView');
+const seacrLayaout = require('../view/searchNoteView')
 const { auth } = require('../middleware/decodedJWT');
 
 router.use(auth);
@@ -19,4 +20,5 @@ router.delete('/:id', versionMiddleware('1.0.0'), controller.deleteNoteById)
 router.use(layout);
 router.use('/detail', detailLayout);
 router.use('/addNote', addLayout);
+router.use('/search', seacrLayaout);
 module.exports = router;
