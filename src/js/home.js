@@ -16,7 +16,7 @@ const fecthNotas = async()=>{
             }
         };
 
-        let uri = `http://localhost:5000/notes`;
+        let uri = `https://notes-app-delta-flame.vercel.app/notes`;
         let request = await fetch(uri, config);
         let response = await request.json();
         if(response.status=== 401) window.location.href='/users';
