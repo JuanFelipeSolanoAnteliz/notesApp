@@ -9,7 +9,7 @@ const app = express();
 
 
 const corsOptions = {
-    origin: ['https://juanfelipesolanoanteliz.github.io', 'https://localhost:5000', "https://notes-app-delta-flame.vercel.app/"],
+    origin: ['https://juanfelipesolanoanteliz.github.io', 'https://localhost:5000', "https://notes-app-delta-flame.vercel.app"],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 };
