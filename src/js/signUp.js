@@ -37,7 +37,7 @@ export function togglePassword(inputId) {
       console.log(request)
       let response = await request.json();
       if(response.status === 406) console.log({ status:406, message:'the password dos not match'});           
-      window.location.href='view/home';
+      window.location.href='https://juanfelipesolanoanteliz.github.io/notesApp/src/view/home';
       
     }
 
