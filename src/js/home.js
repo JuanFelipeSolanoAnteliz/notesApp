@@ -81,7 +81,7 @@ const search = document.querySelector('.icon-button');
 
 search.addEventListener('click', async e =>{
     if( e.target.tagName === 'IMG' ) console.log('searching')
-    window.location.href = 'http://localhost:5000/notes/search'
+    window.location.href = 'https://juanfelipesolanoanteliz.github.io/notesApp/src/view/searchView'
 })
 
 main.addEventListener( 'click', async e =>{
@@ -95,7 +95,7 @@ main.addEventListener( 'click', async e =>{
                     'x-version': '1.0.0'  
                 }
             };
-            let uri = `http://localhost:5000/notes/${e.target.id}`
+            let uri = `https://notes-app-delta-flame.vercel.app/notes/${e.target.id}`
             console.log(uri)
             let req = await fetch(uri, config);
             let res = await req.json();
@@ -106,7 +106,7 @@ main.addEventListener( 'click', async e =>{
     
     // ----------------------- fetch one Note --------------------------
         const fetchOneNote = async()=>{
-        const uri = `http://localhost:5000/notes/${e.target.id}`;
+        const uri = `https://notes-app-delta-flame.vercel.app/notes/${e.target.id}`;
         const config ={
             method:'GET',
             headers:{
