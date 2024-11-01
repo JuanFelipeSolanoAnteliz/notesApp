@@ -7,7 +7,15 @@ const session = require('./server/middleware/sessionConfig');
 const cors = require('cors');
 const app = express();
 
-app.use(cors({origin:'http://localhost:5000', credentials:true}));
+
+const corsOptions = {
+    origin: ['https://localhost:5000', "https://notes-app-delta-flame.vercel.app/"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+};
+
+
+app.use(cors(corsOptions));
 app.use(session);
 app.use(express.json());
 
@@ -18,9 +26,9 @@ const userRouter = require('./server/router/usersRouter');
 const noteRouter = require('./server/router/notesRouter');
 
 
-app.use('/css', express.static(join(__dirname, 'src/css')))
-app.use('/js', express.static(join(__dirname, 'src/js')))
-app.use('/storage', express.static(join(__dirname, 'src/storage')))
+// app.use('/css', express.static(join(__dirname, 'src/css')))
+// app.use('/js', express.static(join(__dirname, 'src/js')))
+// app.use('/storage', express.static(join(__dirname, 'src/storage')))
 
 app.use('/notes', (req, res, next)=>{
     req.__dirname = __dirname;
