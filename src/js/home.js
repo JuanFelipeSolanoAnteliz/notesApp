@@ -13,7 +13,8 @@ const fecthNotas = async()=>{
             headers:{
                 'Content-Type': 'application/json',
                 'x-version': '1.0.0'  
-            }
+            },
+            credentials:'include'
         };
 
         let uri = `https://notes-app-delta-flame.vercel.app/notes`;
@@ -93,7 +94,8 @@ main.addEventListener( 'click', async e =>{
                 headers:{
                     'Content-Type': 'application/json',
                     'x-version': '1.0.0'  
-                }
+                },
+                credentials:'include'
             };
             let uri = `https://notes-app-delta-flame.vercel.app/notes/${e.target.id}`
             console.log(uri)
@@ -112,7 +114,8 @@ main.addEventListener( 'click', async e =>{
             headers:{
                 'Content-Type': 'application/json',
                 'x-version': '1.0.0'  
-            }
+            },
+            credentials:'include'
         };
     
         let req = await fetch( uri, config );
