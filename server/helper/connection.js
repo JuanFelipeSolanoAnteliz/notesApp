@@ -7,7 +7,7 @@ module.exports= class  Connect{
     }
     async getConnect(){
         try{
-            const client = await MongoClient.connect(`mongodb://mongo:jmALqsSRgpmIrYuieEPDAvvCLZySsCSV@junction.proxy.rlwy.net:10635`);
+            const client = await MongoClient.connect(`mongodb://mongo:jmALqsSRgpmIrYuieEPDAvvCLZySsCSV@junction.proxy.rlwy.net:10635/`);
             const db = client.db(this.dbName);
             return {
                 status: 200, 
