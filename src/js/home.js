@@ -1,7 +1,7 @@
 
 const addButton = document.getElementById('add-button');
 addButton.addEventListener('click', async e =>{
-    window.location.href = '/addNote'
+    window.location.href = 'https://juanfelipesolanoanteliz.github.io/notesApp/src/view/addNote'
 })
 
 
@@ -13,8 +13,7 @@ const fecthNotas = async()=>{
             headers:{
                 'Content-Type': 'application/json',
                 'x-version': '1.0.0'  
-            },
-            credentials:'include'
+            }
         };
 
         let uri = `https://notes-app-delta-flame.vercel.app/notes`;
@@ -94,8 +93,7 @@ main.addEventListener( 'click', async e =>{
                 headers:{
                     'Content-Type': 'application/json',
                     'x-version': '1.0.0'  
-                },
-                credentials:'include'
+                }
             };
             let uri = `https://notes-app-delta-flame.vercel.app/notes/${e.target.id}`
             console.log(uri)
