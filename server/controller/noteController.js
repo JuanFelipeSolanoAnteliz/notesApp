@@ -32,7 +32,10 @@ exports.findAllNotes = async(req, res)=>{
         return res.status(result.status).json(result);
     }catch(error){
         let err = JSON.parse(error.message);
-        return res.status(err.status).json(err.message);
+        return res.send({
+            message:'something is wrong with the server (all notes controller)',
+            error:error
+        });
     }
 }
 
