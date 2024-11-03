@@ -1,4 +1,55 @@
 const main = document.querySelector('#main-content');
+
+main.addEventListener( 'click', async e =>{
+    // -------------------------- delete ------------------------------- 
+        const deleteNote = async( )=>{
+            console.log('borrando');
+            let config ={
+                method:'DELETE',
+                headers:{
+                    'Content-Type': 'application/json',
+                    'x-version': '1.0.0'  
+                }
+            };
+            let uri = `http://localhost:5000/notes/${e.target.id}`
+            console.log(uri)
+            let req = await fetch(uri, config);
+            let res = await req.json();
+            return res;
+        }
+    // -------------------------- delete ------------------------------- 
+    
+    
+    // ----------------------- fetch one Note --------------------------
+        const fetchOneNote = async()=>{
+        const uri = `http://localhost:5000/notes/${e.target.id}`;
+        const config ={
+            method:'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'x-version': '1.0.0'  
+            }
+        };
+    
+        let req = await fetch( uri, config );
+        let res = await req.json();
+        console.log(res)
+        console.log(res.data[0]);
+        localStorage.setItem('note', JSON.stringify(res.data[0]));
+        return res.data[0];
+        }
+    // ----------------------------- fetch one Note ----------------------------------
+    
+        if(e.target.classList.value === "note"){
+            await fetchOneNote();
+            window.location.href= `/detail` 
+        }else if( e.target.classList.value === "delete-button" || e.target.tagName === 'IMG'){
+            await deleteNote();
+            await printNotes();
+        }
+    
+    })
+
 const fecthNotas = async(search)=>{
     try{
         let config={
