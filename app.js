@@ -25,9 +25,9 @@ const userRouter = require('./server/router/usersRouter');
 const noteRouter = require('./server/router/notesRouter');
 
 
-app.use('/css', express.static(join(__dirname, 'src/css')))
-app.use('/js', express.static(join(__dirname, 'src/js')))
-app.use('/storage', express.static(join(__dirname, 'src/storage')))
+// app.use('/css', express.static(join(__dirname, 'src/css')))
+// app.use('/js', express.static(join(__dirname, 'src/js')))
+// app.use('/storage', express.static(join(__dirname, 'src/storage')))
 
 app.use('/notes', (req, res, next)=>{
     req.__dirname = __dirname;

@@ -28,7 +28,9 @@ exports.getHistory = async(req, res)=>{
 exports.findAllNotes = async(req, res)=>{
     try{
         // console.log('------data id---------',req.data._id,'-------data id--------');
-        if(!data._id) return { error: 'there is no jwt something is wrong in the middleware'}
+        if (!req.data || !req.data._id) {
+            return res.status(401).json({ error: 'There is no JWT. Something is wrong in the middleware' });
+        }       
         let result = await note.getAllNotesByUser(req.data._id);
         if (!result) {
             return res.status(404).json({ message: 'No notes found' });
