@@ -14,6 +14,7 @@ function showModal(e) {
 }
 
 discardButton.addEventListener('click', async () => {
+    window.location.href = '/'
     localStorage.removeItem('note');
     
 
@@ -21,7 +22,9 @@ discardButton.addEventListener('click', async () => {
 
 keepButton.addEventListener('click', async() => {
     modal.style.display = 'none';
+    const noteContent = document.querySelector('.note')
     const bodyText = document.querySelector('.noteBody')
+    console.log(noteContent,'sio')
     const title = document.querySelector('.noteTitle');
     let note=  JSON.parse(localStorage.getItem('note'));
     let noteId= note._id
@@ -81,8 +84,8 @@ const printNote = async(id) =>{
     console.log(note)
     return note.innerHTML = /*html*/`
         <h1 contenteditable="true" spellcheck="false" class="noteTitle">${details.title}</h1>
-        <div  contenteditable="true" spellcheck="false" class="content">
-            <p class="noteBody">${details.content}</p>
+        <div class="content">
+            <p contenteditable="true" spellcheck="false" class="noteBody">${details.content}</p>
         </div>
     `;
 }
