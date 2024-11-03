@@ -12,7 +12,7 @@ exports.auth = async(req, res, next)=>{
     }catch(error){
         console.log({status: 401, message: 'No token provided', data: error.message})
         // res.redirect('/users');
-        return {status: 401, message: 'No token provided', data: error.message}
+        return res.json({status: 401, message: 'No token provided', data: error.message})
         
     }
 }
