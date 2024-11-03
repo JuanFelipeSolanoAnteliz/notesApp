@@ -27,13 +27,17 @@ exports.getHistory = async(req, res)=>{
  */
 exports.findAllNotes = async(req, res)=>{
     try{
-        console.log('------data id---------',req.data._id,'-------data id--------');
+        // console.log('------data id---------',req.data._id,'-------data id--------');
+        if(!data._id) return { error: 'there is no jwt something is wrong in the middleware'}
         let result = await note.getAllNotesByUser(req.data._id);
+        if (!result) {
+            return res.status(404).json({ message: 'No notes found' });
+        }
         return res.status(result.status).json(result);
     }catch(error){
-        let err = JSON.parse(error.message);
+        // let err = JSON.parse(error.message);
         return res.send({
-            message:'something is wrong with the server (all notes controller)',
+            message:'something is wrong with the server (allNotes controller)',
             error:error
         });
     }
