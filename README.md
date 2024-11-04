@@ -5,7 +5,7 @@
 
 **command to swithc branch**
 
-`git branch localProject`
+`git checkout localProject`
 
 **Create a file `.env` and then copy and paste this in that file**
 ```
